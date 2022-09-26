@@ -1,50 +1,33 @@
+import java.time.LocalDate;
+
 public class Human {
     String name;
-    String town;
-    int yearOfBirth;
+    private String town;
+    private int yearOfBirth;
     String job;
-
 
     public Human(String name, String town, int age, String job) {
         this.name = name;
-        this.town = town;
-        if (age > 0) {
-            this.yearOfBirth = 2022 - age;
+        if (town == null || town.isEmpty() || town.isBlank()) {
+            this.town = "default";
         } else {
-            this.yearOfBirth = 2022 + age;
+            this.town = town;
         }
-        this.job = job;
-    }
-    public Human(String name, int age, String job) {
-        this.name = name;
-        this.town = null;
         if (age > 0) {
-            this.yearOfBirth = 2022 - age;
+            this.yearOfBirth = LocalDate.now().getYear() - age;
         } else {
-            this.yearOfBirth = 2022 + age;
+            this.yearOfBirth = LocalDate.now().getYear();
         }
-        this.job = job;
-    }
-    public Human(String name, String town, String job) {
-        this.name = name;
-        this.town = town;
-        this.yearOfBirth = 0;
-        this.job = job;
-    }
-    public Human(String name, String town, int age) {
-        this.name = name;
-        this.town = town;
-        if (age > 0) {
-            this.yearOfBirth = 2022 - age;
+        if (job == null || job.isEmpty() || job.isBlank()) {
+            this.job = "default";
         } else {
-            this.yearOfBirth = 2022 + age;
+            this.job = job;
         }
-        this.job = null;
     }
 
     public void hello() {
         System.out.print("Привет! Меня зовут " + this.name + ". ");
-        if (this.town == null) {
+        if (this.town == "default") {
             System.out.print("Информация о городе не указана. ");
         } else {
             System.out.print("Я из города " + this.town + ". ");
@@ -54,11 +37,35 @@ public class Human {
         } else {
             System.out.print("Я родился в " + this.yearOfBirth + " году. ");
         }
-        if (this.job == null) {
+        if (this.job == "default") {
             System.out.print("Информация о должности не указана. ");
         } else {
             System.out.print("Я работаю на должности " + job + ". ");
         }
         System.out.println("Будем знакомы!");
+    }
+
+    public String getTown() {
+        return this.town;
+    }
+
+    public int getAge() {
+        return LocalDate.now().getYear() - this.yearOfBirth;
+    }
+
+    public void setTown(String town) {
+        if (town == null || town.isEmpty() || town.isBlank()) {
+            this.town = "default";
+        } else {
+            this.town = town;
+        }
+    }
+
+    public void setAge(int age) {
+        if (age > 0) {
+            this.yearOfBirth = LocalDate.now().getYear() - age;
+        } else {
+            this.yearOfBirth = LocalDate.now().getYear();
+        }
     }
 }
